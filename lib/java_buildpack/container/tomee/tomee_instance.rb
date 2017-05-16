@@ -35,8 +35,6 @@ module JavaBuildpack
         if ear?
           link_to(@application.root.drivers, web_inf_lib)
         end
-
-        end
         @droplet.additional_libraries.link_to web_inf_lib
       end
 
