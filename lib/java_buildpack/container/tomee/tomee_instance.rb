@@ -32,7 +32,7 @@ module JavaBuildpack
           @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         end
 
-        if ear?
+        if ear? && drivers?
           link_to(@application.root.drivers, web_inf_lib)
         end
         @droplet.additional_libraries.link_to web_inf_lib
@@ -64,6 +64,9 @@ module JavaBuildpack
         (@application.root + 'META-INF/application.xml').exist?
       end
 
+      def drivers?
+        (@application.root + 'drivers/').exist?
+      end
     end
 
   end
