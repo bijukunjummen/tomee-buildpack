@@ -27,8 +27,15 @@ module JavaBuildpack
       def compile
         download(@version, @uri) { |file| expand file }
         link_to(@application.root.children, root)
+
         unless ear?
           @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
+        end
+
+        if ear?
+          link_to(@application.root.drivers, web_inf_lib)
+        end
+
         end
         @droplet.additional_libraries.link_to web_inf_lib
       end
